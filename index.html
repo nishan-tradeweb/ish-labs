@@ -9,14 +9,18 @@
     >
 
     <meta name="theme-color" content="#0b0f14">
-    <meta name="description"
-        content="Ish Labs — Real-time BTCUSDT SMC analysis, trading signals and backtesting.">
 
-    <link rel="manifest" href="manifest.json">
+    <meta
+        name="description"
+        content="Ish Labs — Real-time BTCUSDT SMC analysis, trading signals and backtesting."
+    >
+
+    <link rel="manifest" href="./manifest.json">
 
     <title>Ish Labs — SMC Trader</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -147,6 +151,7 @@
             display: grid;
             place-items: center;
             color: #667382;
+
             background:
                 linear-gradient(
                     rgba(255,255,255,0.02) 1px,
@@ -157,11 +162,13 @@
                     rgba(255,255,255,0.02) 1px,
                     transparent 1px
                 );
+
             background-size: 50px 50px;
         }
 
         .chart-placeholder {
             text-align: center;
+            padding: 20px;
         }
 
         .chart-placeholder strong {
@@ -235,6 +242,7 @@
         .analysis-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             gap: 10px;
             padding: 9px 0;
             font-size: 12px;
@@ -243,6 +251,10 @@
 
         .analysis-row:last-child {
             border-bottom: 0;
+        }
+
+        .analysis-row strong {
+            text-align: right;
         }
 
         .check {
@@ -310,6 +322,7 @@
         }
 
         @media (max-width: 900px) {
+
             .grid {
                 grid-template-columns: 1fr;
             }
@@ -325,6 +338,7 @@
         }
 
         @media (max-width: 600px) {
+
             header {
                 padding: 0 14px;
             }
@@ -353,40 +367,70 @@
                 height: 360px;
             }
         }
+
     </style>
 </head>
 
 <body>
 
 <header>
+
     <div class="brand">
-        <div class="brand-mark">IS</div>
-        <div class="brand-name">Ish Labs</div>
+
+        <div class="brand-mark">
+            IS
+        </div>
+
+        <div class="brand-name">
+            Ish Labs
+        </div>
+
     </div>
 
     <div class="status">
         <span class="status-dot"></span>
-        System Online
+        Connecting...
     </div>
+
 </header>
+
 
 <main>
 
     <section class="market-bar">
 
         <div>
-            <div class="pair">BTCUSDT</div>
-            <div class="contract">Binance USDⓈ-M Perpetual</div>
+
+            <div class="pair">
+                BTCUSDT
+            </div>
+
+            <div class="contract">
+                Binance USDⓈ-M Perpetual
+            </div>
+
         </div>
 
+
         <div class="price">
-            <div class="price-value">—</div>
-            <div class="price-change">Awaiting Binance data</div>
+
+            <div class="price-value">
+                —
+            </div>
+
+            <div class="price-change">
+                Connecting to Binance...
+            </div>
+
         </div>
 
     </section>
 
+
     <section class="grid">
+
+
+        <!-- CHART -->
 
         <div class="card">
 
@@ -395,24 +439,58 @@
             </div>
 
             <div class="chart">
+
                 <div class="chart-placeholder">
-                    <strong>Chart engine coming next</strong>
-                    Historical and real-time Binance data will appear here.
+
+                    <strong>
+                        Chart engine coming next
+                    </strong>
+
+                    Historical and real-time Binance data
+                    will appear here.
+
                 </div>
+
             </div>
 
+
             <div class="timeframes">
-                <button class="timeframe">1D</button>
-                <button class="timeframe active">4H</button>
-                <button class="timeframe">1H</button>
-                <button class="timeframe">15M</button>
-                <button class="timeframe">5M</button>
-                <button class="timeframe">1M</button>
+
+                <button class="timeframe">
+                    1D
+                </button>
+
+                <button class="timeframe active">
+                    4H
+                </button>
+
+                <button class="timeframe">
+                    1H
+                </button>
+
+                <button class="timeframe">
+                    15M
+                </button>
+
+                <button class="timeframe">
+                    5M
+                </button>
+
+                <button class="timeframe">
+                    1M
+                </button>
+
             </div>
 
         </div>
 
+
+        <!-- RIGHT PANEL -->
+
         <div class="side">
+
+
+            <!-- MULTI TIMEFRAME -->
 
             <div class="card">
 
@@ -424,115 +502,204 @@
 
                     <div class="bias-row">
                         <span>1D</span>
-                        <strong class="bullish">BULLISH</strong>
+                        <strong class="neutral">
+                            WAITING
+                        </strong>
                     </div>
 
                     <div class="bias-row">
                         <span>4H</span>
-                        <strong class="bullish">BULLISH</strong>
+                        <strong class="neutral">
+                            WAITING
+                        </strong>
                     </div>
 
                     <div class="bias-row">
                         <span>1H</span>
-                        <strong class="bullish">BULLISH</strong>
+                        <strong class="neutral">
+                            WAITING
+                        </strong>
                     </div>
 
                     <div class="bias-row">
                         <span>15M</span>
-                        <strong class="neutral">NEUTRAL</strong>
+                        <strong class="neutral">
+                            WAITING
+                        </strong>
                     </div>
 
                     <div class="bias-row">
                         <span>5M</span>
-                        <strong class="neutral">WAITING</strong>
+                        <strong class="neutral">
+                            WAITING
+                        </strong>
                     </div>
 
                     <div class="bias-row">
                         <span>1M</span>
-                        <strong class="neutral">WAITING</strong>
+                        <strong class="neutral">
+                            WAITING
+                        </strong>
                     </div>
 
                 </div>
 
             </div>
 
+
+            <!-- LIVE DATA -->
+
             <div class="card">
 
-                <div class="card">
+                <div class="card-header">
+                    LIVE MARKET DATA
+                </div>
 
-    <div class="card-header">
-        LIVE MARKET DATA
-    </div>
+                <div
+                    class="analysis"
+                    id="live-diagnostics"
+                >
 
-    <div class="analysis" id="live-diagnostics">
+                    <div class="analysis-row">
 
-        <div class="analysis-row">
-            <span>Data Source</span>
-            <strong class="waiting">CONNECTING...</strong>
-        </div>
+                        <span>
+                            Data Source
+                        </span>
 
-        <div class="analysis-row">
-            <span>Market</span>
-            <strong>BTCUSDT PERPETUAL</strong>
-        </div>
+                        <strong class="waiting">
+                            CONNECTING...
+                        </strong>
 
-        <div class="analysis-row">
-            <span>Price</span>
-            <strong>—</strong>
-        </div>
+                    </div>
 
-        <div class="analysis-row">
-            <span>Last Update</span>
-            <strong>—</strong>
-        </div>
 
-        <div class="analysis-row">
-            <span>Update Interval</span>
-            <strong>2 SECONDS</strong>
-        </div>
+                    <div class="analysis-row">
 
-        <div class="analysis-row">
-            <span>Connection</span>
-            <strong class="waiting">CONNECTING...</strong>
-        </div>
+                        <span>
+                            Market
+                        </span>
 
-    </div>
+                        <strong>
+                            BTCUSDT PERPETUAL
+                        </strong>
+
+                    </div>
+
+
+                    <div class="analysis-row">
+
+                        <span>
+                            Price
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="analysis-row">
+
+                        <span>
+                            Last Update
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="analysis-row">
+
+                        <span>
+                            Update Interval
+                        </span>
+
+                        <strong>
+                            2 SECONDS
+                        </strong>
+
+                    </div>
+
+
+                    <div class="analysis-row">
+
+                        <span>
+                            Connection
+                        </span>
+
+                        <strong class="waiting">
+                            CONNECTING...
+                        </strong>
+
+                    </div>
 
                 </div>
 
+            </div>
+
+
+            <!-- SMC -->
+
+            <div class="card">
+
+                <div class="card-header">
+                    SMC ANALYSIS
+                </div>
+
+                <div class="analysis">
+
                     <div class="analysis-row">
                         <span>Liquidity Sweep</span>
-                        <strong class="waiting">Waiting</strong>
+                        <strong class="waiting">
+                            Waiting
+                        </strong>
                     </div>
 
                     <div class="analysis-row">
                         <span>Market Structure</span>
-                        <strong class="waiting">Waiting</strong>
+                        <strong class="waiting">
+                            Waiting
+                        </strong>
                     </div>
 
                     <div class="analysis-row">
                         <span>MSS / CHoCH</span>
-                        <strong class="waiting">Waiting</strong>
+                        <strong class="waiting">
+                            Waiting
+                        </strong>
                     </div>
 
                     <div class="analysis-row">
                         <span>Fair Value Gap</span>
-                        <strong class="waiting">Waiting</strong>
+                        <strong class="waiting">
+                            Waiting
+                        </strong>
                     </div>
 
                     <div class="analysis-row">
                         <span>Order Block</span>
-                        <strong class="waiting">Waiting</strong>
+                        <strong class="waiting">
+                            Waiting
+                        </strong>
                     </div>
 
                     <div class="analysis-row">
                         <span>Premium / Discount</span>
-                        <strong class="waiting">Waiting</strong>
+                        <strong class="waiting">
+                            Waiting
+                        </strong>
                     </div>
 
                 </div>
 
             </div>
+
+
+            <!-- TRADE SETUP -->
 
             <div class="card">
 
@@ -546,34 +713,75 @@
                         NO ACTIVE SETUP
                     </div>
 
+
                     <div class="setup-grid">
 
                         <div class="metric">
-                            <div class="metric-label">ENTRY</div>
-                            <div class="metric-value">—</div>
+
+                            <div class="metric-label">
+                                ENTRY
+                            </div>
+
+                            <div class="metric-value">
+                                —
+                            </div>
+
                         </div>
 
-                        <div class="metric">
-                            <div class="metric-label">STOP LOSS</div>
-                            <div class="metric-value">—</div>
-                        </div>
 
                         <div class="metric">
-                            <div class="metric-label">TP1</div>
-                            <div class="metric-value">—</div>
+
+                            <div class="metric-label">
+                                STOP LOSS
+                            </div>
+
+                            <div class="metric-value">
+                                —
+                            </div>
+
                         </div>
 
+
                         <div class="metric">
-                            <div class="metric-label">TP2</div>
-                            <div class="metric-value">—</div>
+
+                            <div class="metric-label">
+                                TP1
+                            </div>
+
+                            <div class="metric-value">
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="metric">
+
+                            <div class="metric-label">
+                                TP2
+                            </div>
+
+                            <div class="metric-value">
+                                —
+                            </div>
+
                         </div>
 
                     </div>
+
 
                     <div class="score">
-                        <span>SETUP SCORE</span>
-                        <strong>0 / 10</strong>
+
+                        <span>
+                            SETUP SCORE
+                        </span>
+
+                        <strong>
+                            0 / 10
+                        </strong>
+
                     </div>
+
 
                     <div class="status-box">
                         WAITING FOR MARKET DATA
@@ -589,24 +797,46 @@
 
 </main>
 
+
+<!-- SERVICE WORKER -->
+
 <script>
+
     if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker.register("./sw.js")
-                .then(() => {
-                    console.log("Ish Labs service worker registered.");
-                })
-                .catch(error => {
-                    console.error(
-                        "Ish Labs service worker registration failed:",
-                        error
-                    );
-                });
-        });
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker
+                    .register("./sw.js?v=2")
+                    .then(() => {
+
+                        console.log(
+                            "Ish Labs service worker registered."
+                        );
+
+                    })
+                    .catch(error => {
+
+                        console.error(
+                            "Service worker registration failed:",
+                            error
+                        );
+
+                    });
+
+            }
+        );
+
     }
+
 </script>
 
-<script src="./binance.js?v=2"></script>
+
+<!-- BINANCE LIVE DATA -->
+
+<script src="./binance.js?v=3"></script>
 
 </body>
 </html>
