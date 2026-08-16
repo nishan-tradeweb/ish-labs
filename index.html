@@ -553,5 +553,22 @@
 
 </main>
 
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js")
+                .then(() => {
+                    console.log("Ish Labs service worker registered.");
+                })
+                .catch(error => {
+                    console.error(
+                        "Ish Labs service worker registration failed:",
+                        error
+                    );
+                });
+        });
+    }
+</script>
+    
 </body>
 </html>
