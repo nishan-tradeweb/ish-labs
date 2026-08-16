@@ -1,4 +1,4 @@
-const CACHE_NAME = "ish-labs-v2";
+const CACHE_NAME = "ish-labs-v3";
 
 const APP_FILES = [
     "./",
