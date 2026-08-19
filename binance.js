@@ -571,7 +571,7 @@ function updateTradeSetupPanel(analysis) {
         if (scoreElement) {
             scoreElement.textContent =
                 decision.score != null
-                    ? `${quality.score} / 10`
+                    ? `${decision.score} / 10`
                     : "—";
         }
 
@@ -607,10 +607,14 @@ function updateTradeSetupPanel(analysis) {
         }
 
         if (scoreElement) {
+            
+            const score =
+                Number(decision.score);
+
             scoreElement.textContent =
-                decision.score != null
-                    ? `${decision.score} / 10`
-                    : "0 / 10";
+                Number.isFinite(score)
+                    ? `${Math.abs(score)} / 10`
+                    : "—";
         }
 
         if (statusElement) {
