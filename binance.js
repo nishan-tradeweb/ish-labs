@@ -47,12 +47,6 @@ document.addEventListener(
     { once: true }
 );
 
-document.addEventListener(
-    "dblclick",
-    () => {
-        playTradeAlertSound();
-    }
-);
 
 document.addEventListener(
     "touchstart",
