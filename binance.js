@@ -312,6 +312,9 @@ async function checkTradingSignal() {
             "ISH LABS ANALYSIS:",
             analysis
         );
+
+        updateTradeSetupPanel(analysis);
+        
         if (
             analysis.trade_levels?.status === "VALID"
         ) {
@@ -487,6 +490,133 @@ function updateLivePanel(price) {
                 : ""
         }
     `;
+}
+
+function updateTradeSetupPanel(analysis) {
+
+    const directionElement =
+        document.querySelector("#trade-setup-direction");
+
+    const entryElement =
+        document.querySelector("#trade-entry");
+
+    const stopLossElement =
+        document.querySelector("#trade-stop-loss");
+
+    const tp1Element =
+        document.querySelector("#trade-tp1");
+
+    const tp2Element =
+        document.querySelector("#trade-tp2");
+
+    const scoreElement =
+        document.querySelector("#trade-setup-score");
+
+    const statusElement =
+        document.querySelector("#trade-status");
+
+    if (!analysis) return;
+
+    const decision =
+        analysis.final_decision || {};
+
+    const trade =
+        analysis.trade_levels || {};
+
+    const quality =
+        analysis.trade_quality || {};
+
+    const decisionValue =
+        String(decision.decision || "WAIT").toUpperCase();
+
+    const tradeStatus =
+        String(trade.status || "").toUpperCase();
+
+    if (tradeStatus === "VALID") {
+
+        if (directionElement) {
+            directionElement.textContent =
+                decisionValue;
+
+            directionElement.className =
+                "setup-direction " +
+                (
+                    decisionValue === "BUY"
+                        ? "bullish"
+                        : decisionValue === "SELL"
+                            ? "bearish"
+                            : "neutral"
+                );
+        }
+
+        if (entryElement) {
+            entryElement.textContent =
+                trade.entry_price ?? "—";
+        }
+
+        if (stopLossElement) {
+            stopLossElement.textContent =
+                trade.stop_loss ?? "—";
+        }
+
+        if (tp1Element) {
+            tp1Element.textContent =
+                trade.take_profit ?? "—";
+        }
+
+        if (tp2Element) {
+            tp2Element.textContent =
+                trade.tp2 ?? "—";
+        }
+
+        if (scoreElement) {
+            scoreElement.textContent =
+                quality.score != null
+                    ? `${quality.score} / 10`
+                    : "—";
+        }
+
+        if (statusElement) {
+            statusElement.textContent =
+                "VALID TRADE SETUP";
+        }
+
+    } else {
+
+        if (directionElement) {
+            directionElement.textContent =
+                "NO ACTIVE SETUP";
+
+            directionElement.className =
+                "setup-direction neutral";
+        }
+
+        if (entryElement) {
+            entryElement.textContent = "—";
+        }
+
+        if (stopLossElement) {
+            stopLossElement.textContent = "—";
+        }
+
+        if (tp1Element) {
+            tp1Element.textContent = "—";
+        }
+
+        if (tp2Element) {
+            tp2Element.textContent = "—";
+        }
+
+        if (scoreElement) {
+            scoreElement.textContent =
+                "0 / 10";
+        }
+
+        if (statusElement) {
+            statusElement.textContent =
+                "WAITING FOR VALID SETUP";
+        }
+    }
 }
 
 if (candleSeries && btcChart) {
