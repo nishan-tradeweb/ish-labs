@@ -1,4 +1,3 @@
-alert("ISH LABS JS LOADED");
 const chartContainer =
     document.getElementById("btc-chart");
 
