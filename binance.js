@@ -6,6 +6,7 @@ const BINANCE_PRICE_API =
 
 let lastPrice = null;
 let latestAnalysis = null;
+let lastAlertedTrade = null;
 
 async function checkTradingSignal() {
 
@@ -33,6 +34,25 @@ async function checkTradingSignal() {
             "ISH LABS ANALYSIS:",
             analysis
         );
+        if (
+            analysis.trade_levels?.status === "VALID"
+        ) {
+
+            const tradeId =
+                JSON.stringify(analysis.trade_levels);
+
+            if (lastAlertedTrade !== tradeId) {
+
+                lastAlertedTrade = tradeId;
+
+                console.log(
+                    "NEW VALID TRADE:",
+                    analysis.trade_levels
+                );
+
+                showTradeAlert(analysis);
+            }
+        }
 
     } catch (error) {
 
@@ -193,3 +213,79 @@ setInterval(
     checkTradingSignal,
     5000
 );
+
+function showTradeAlert(analysis) {
+
+    const trade =
+        analysis.trade_levels;
+
+    const decision =
+        analysis.final_decision;
+
+    const existing =
+        document.querySelector("#ish-trade-alert");
+
+    if (existing) {
+        existing.remove();
+    }
+
+    const alert =
+        document.createElement("div");
+
+    alert.id = "ish-trade-alert";
+
+    alert.innerHTML = `
+        <div class="ish-alert-box">
+
+            <div class="ish-alert-title">
+                🚨 ISH LABS SIGNAL
+            </div>
+
+            <div class="ish-alert-signal">
+                ${decision.decision}
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Entry</span>
+                <strong>${trade.entry_price}</strong>
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Stop Loss</span>
+                <strong>${trade.stop_loss}</strong>
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Take Profit</span>
+                <strong>${trade.take_profit}</strong>
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Risk / Reward</span>
+                <strong>1:${trade.risk_reward}</strong>
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Confidence</span>
+                <strong>${decision.confidence}%</strong>
+            </div>
+
+            <button
+                id="ish-alert-close"
+                type="button"
+            >
+                CLOSE
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(alert);
+
+    document
+        .querySelector("#ish-alert-close")
+        .addEventListener(
+            "click",
+            () => alert.remove()
+        );
+}
