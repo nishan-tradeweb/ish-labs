@@ -1,10 +1,11 @@
+alert("ISH LABS JS LOADED");
 const chartContainer =
     document.getElementById("btc-chart");
 
 let btcChart = null;
 let candleSeries = null;
 
-if (chartContainer) {
+if (chartContainer && typeof LightweightCharts !== "undefined") {
 
     btcChart =
         LightweightCharts.createChart(
@@ -53,71 +54,6 @@ if (chartContainer) {
                 wickDownColor: "#ff6673"
             }
         );
-
-async function loadCandleHistory() {
-
-    try {
-
-        const response = await fetch(
-            "https://ish-labs-backend.onrender.com/api/btcusdt?_=" + Date.now(),
-            {
-                cache: "no-store"
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(
-                "BTCUSDT API HTTP " + response.status
-            );
-        }
-
-        const data = await response.json();
-
-        if (
-            !data.history ||
-            !Array.isArray(data.history)
-        ) {
-            throw new Error(
-                "Candle history not available"
-            );
-        }
-
-        const candles = data.history
-            .map(candle => ({
-                time: Math.floor(
-                    Number(candle.open_time) / 1000
-                ),
-                open: Number(candle.open),
-                high: Number(candle.high),
-                low: Number(candle.low),
-                close: Number(candle.close)
-            }))
-            .filter(candle =>
-                Number.isFinite(candle.time) &&
-                Number.isFinite(candle.open) &&
-                Number.isFinite(candle.high) &&
-                Number.isFinite(candle.low) &&
-                Number.isFinite(candle.close)
-            );
-
-        candleSeries.setData(candles);
-
-        btcChart.timeScale().fitContent();
-
-        console.log(
-            "ISH LABS:",
-            candles.length,
-            "historical candles loaded."
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load candle history:",
-            error
-        );
-
-    }
 }
 
 
@@ -553,7 +489,9 @@ function updateLivePanel(price) {
     `;
 }
 
-loadHistoricalCandles();
+if (candleSeries && btcChart) {
+    loadHistoricalCandles();
+}
 
 updateBTCPrice();
 
