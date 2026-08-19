@@ -68,41 +68,15 @@ window.addEventListener("resize", () => {
 
 });
 
-if (candleSeries) {
-
-    candleSeries.setData([
-        {
-            time: Math.floor(Date.now() / 1000) - 180,
-            open: 68000,
-            high: 68100,
-            low: 67950,
-            close: 68080
-        },
-        {
-            time: Math.floor(Date.now() / 1000) - 120,
-            open: 68080,
-            high: 68200,
-            low: 68020,
-            close: 68150
-        },
-        {
-            time: Math.floor(Date.now() / 1000) - 60,
-            open: 68150,
-            high: 68300,
-            low: 68100,
-            close: 68250
-        }
-    ]);
-
-    btcChart.timeScale().fitContent();
-
-}
 
 const ANALYSIS_API =
     "https://ish-labs-backend.onrender.com/api/analysis";
 
 const BINANCE_PRICE_API =
     "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
+
+const CANDLES_API =
+    "https://ish-labs-backend.onrender.com/api/btcusdt";
 
 let lastPrice = null;
 let latestAnalysis = null;
