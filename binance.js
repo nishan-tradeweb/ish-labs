@@ -78,6 +78,91 @@ const BINANCE_PRICE_API =
 const CANDLES_API =
     "https://ish-labs-backend.onrender.com/api/btcusdt";
 
+async function loadHistoricalCandles() {
+
+    try {
+
+        const response =
+            await fetch(
+                CANDLES_API + "?_=" + Date.now(),
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Candle API HTTP " + response.status
+            );
+        }
+
+        const result =
+            await response.json();
+
+        if (
+            !Array.isArray(result.history) ||
+            result.history.length === 0
+        ) {
+            throw new Error(
+                "No candle history available"
+            );
+        }
+
+        const candles =
+            result.history
+                .map(candle => ({
+                    time:
+                        Math.floor(
+                            Number(candle.open_time) / 1000
+                        ),
+
+                    open:
+                        Number(candle.open),
+
+                    high:
+                        Number(candle.high),
+
+                    low:
+                        Number(candle.low),
+
+                    close:
+                        Number(candle.close)
+                }))
+                .filter(candle =>
+                    Number.isFinite(candle.time) &&
+                    Number.isFinite(candle.open) &&
+                    Number.isFinite(candle.high) &&
+                    Number.isFinite(candle.low) &&
+                    Number.isFinite(candle.close)
+                )
+                .sort(
+                    (a, b) => a.time - b.time
+                );
+
+        if (candleSeries) {
+
+            candleSeries.setData(candles);
+
+            btcChart
+                .timeScale()
+                .fitContent();
+        }
+
+        console.log(
+            "ISH LABS CHART:",
+            candles.length,
+            "candles loaded"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "ISH LABS historical candles failed:",
+            error
+        );
+    }
+}
+
 let lastPrice = null;
 let latestAnalysis = null;
 let lastAlertedTrade = null;
@@ -401,7 +486,9 @@ function updateLivePanel(price) {
         }
     `;
 }
-    
+
+loadHistoricalCandles();
+
 updateBTCPrice();
 
 setInterval(
