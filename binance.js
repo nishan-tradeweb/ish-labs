@@ -349,6 +349,12 @@ function showTradeAlert(analysis) {
 
     const decision =
         analysis.final_decision;
+    
+    const quality =
+        analysis.trade_quality;
+
+    const risk =
+        analysis.trade_risk;
 
     const existing =
         document.querySelector("#ish-trade-alert");
@@ -361,6 +367,17 @@ function showTradeAlert(analysis) {
         document.createElement("div");
 
     alert.id = "ish-trade-alert";
+
+    const direction =
+        String(decision.decision || "").toUpperCase();
+
+    if (direction === "BUY") {
+        alert.classList.add("ish-alert-buy");
+    }
+
+    if (direction === "SELL") {
+        alert.classList.add("ish-alert-sell");
+    }
 
     alert.innerHTML = `
         <div class="ish-alert-box">
@@ -375,27 +392,45 @@ function showTradeAlert(analysis) {
 
             <div class="ish-alert-row">
                 <span>Entry</span>
-                <strong>${trade.entry_price}</strong>
+                <strong>${trade.entry_price ?? "—"}</strong>
             </div>
 
             <div class="ish-alert-row">
                 <span>Stop Loss</span>
-                <strong>${trade.stop_loss}</strong>
+                <strong>${trade.stop_loss ?? "—"}</strong>
             </div>
 
             <div class="ish-alert-row">
-                <span>Take Profit</span>
-                <strong>${trade.take_profit}</strong>
+                <span>TP1</span>
+                <strong>${trade.take_profit ?? "—"}</strong>
             </div>
 
             <div class="ish-alert-row">
                 <span>Risk / Reward</span>
-                <strong>1:${trade.risk_reward}</strong>
+                <strong>
+                    1:${trade.risk_reward ?? "—"}
+                </strong>
             </div>
 
             <div class="ish-alert-row">
                 <span>Confidence</span>
-                <strong>${decision.confidence}%</strong>
+                <strong>
+                    ${decision.confidence ?? "—"}%
+                </strong>
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Risk</span>
+                <strong>
+                    ${risk?.level ?? "—"}
+                </strong>
+            </div>
+
+            <div class="ish-alert-row">
+                <span>Trade Quality</span>
+                <strong>
+                    ${quality?.quality ?? "—"}
+                </strong>
             </div>
 
             <button
