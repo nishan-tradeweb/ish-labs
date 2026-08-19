@@ -1,7 +1,43 @@
+const ANALYSIS_API =
+    "https://ish-labs-backend.onrender.com/api/analysis";
 const BINANCE_PRICE_API =
     "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
 
 let lastPrice = null;
+
+async function checkTradingSignal() {
+
+    try {
+
+        const response = await fetch(
+            ANALYSIS_API + "?_=" + Date.now(),
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Analysis API HTTP " + response.status
+            );
+        }
+
+        const analysis =
+            await response.json();
+
+        console.log(
+            "ISH LABS ANALYSIS:",
+            analysis
+        );
+
+    } catch (error) {
+
+        console.error(
+            "ISH LABS analysis update failed:",
+            error
+        );
+    }
+}
 
 async function updateBTCPrice() {
     try {
@@ -120,4 +156,11 @@ updateBTCPrice();
 setInterval(
     updateBTCPrice,
     2000
+);
+
+checkTradingSignal();
+
+setInterval(
+    checkTradingSignal,
+    5000
 );
