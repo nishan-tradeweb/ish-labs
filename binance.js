@@ -1,9 +1,11 @@
 const ANALYSIS_API =
     "https://ish-labs-backend.onrender.com/api/analysis";
+
 const BINANCE_PRICE_API =
     "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
 
 let lastPrice = null;
+let latestAnalysis = null;
 
 async function checkTradingSignal() {
 
@@ -24,6 +26,8 @@ async function checkTradingSignal() {
 
         const analysis =
             await response.json();
+
+        latestAnalysis = analysis;
 
         console.log(
             "ISH LABS ANALYSIS:",
@@ -178,6 +182,32 @@ function updateLivePanel(price) {
             <strong class="check">LIVE</strong>
         </div>
     `;
+
+    if (latestAnalysis) {
+
+        panel.innerHTML += `
+            <div class="analysis-row">
+                <span>ISH Labs API</span>
+                <strong class="check">
+                    CONNECTED
+                </strong>
+            </div>
+
+            <div class="analysis-row">
+                <span>Signal</span>
+                <strong>
+                    ${latestAnalysis.signal?.signal ?? "N/A"}
+                </strong>
+            </div>
+
+            <div class="analysis-row">
+                <span>Decision</span>
+                <strong>
+                    ${latestAnalysis.final_decision?.decision ?? "N/A"}
+                </strong>
+            </div>
+        `;
+    }
 }
 
 updateBTCPrice();
