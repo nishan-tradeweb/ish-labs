@@ -389,6 +389,14 @@
         color: #e8edf3;
     }
 
+    .ish-alert-buy .ish-alert-box {
+        border-color: #35d07f;
+    }
+
+    .ish-alert-sell .ish-alert-box {
+        border-color: #ff6673;
+    }
+
     .ish-alert-title {
         font-size: 18px;
         font-weight: 700;
@@ -399,6 +407,14 @@
         font-size: 28px;
         font-weight: 800;
         margin-bottom: 18px;
+    }
+
+    .ish-alert-buy .ish-alert-signal {
+        color: #35d07f;
+    }
+
+    .ish-alert-sell .ish-alert-signal {
+        color: #ff6673;
     }
 
     .ish-alert-row {
@@ -446,6 +462,8 @@
 
         .ish-alert-box {
             padding: 16px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
         }
 
         .ish-alert-title {
@@ -454,6 +472,11 @@
 
         .ish-alert-signal {
             font-size: 24px;
+        }
+
+        .ish-alert-row {
+            padding: 10px 0;
+            font-size: 13px;
         }
     }
 
