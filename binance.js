@@ -34,35 +34,6 @@ async function checkTradingSignal() {
             analysis
         );
 
-        const testElement =
-            document.querySelector("#live-diagnostics");
-
-        if (testElement) {
-
-            testElement.innerHTML += `
-                <div class="analysis-row">
-                    <span>ISH Labs API</span>
-                    <strong class="check">
-                        CONNECTED
-                    </strong>
-                </div>
-
-                <div class="analysis-row">
-                    <span>Signal</span>
-                    <strong>
-                        ${analysis.signal?.signal ?? "N/A"}
-                    </strong>
-                </div>
-
-                <div class="analysis-row">
-                    <span>Decision</span>
-                    <strong>
-                        ${analysis.final_decision?.decision ?? "N/A"}
-                    </strong>
-                </div>
-            `;
-        }
-
     } catch (error) {
 
         console.error(
