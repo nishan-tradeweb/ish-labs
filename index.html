@@ -367,6 +367,95 @@
                 height: 360px;
             }
         }
+        
+    /* ============================================================
+       ISH LABS TRADE ALERT
+       ============================================================ */
+
+    #ish-trade-alert {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        z-index: 99999;
+        width: min(360px, calc(100vw - 40px));
+    }
+
+    .ish-alert-box {
+        padding: 20px;
+        border-radius: 16px;
+        background: #111820;
+        border: 1px solid #35d07f;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.55);
+        color: #e8edf3;
+    }
+
+    .ish-alert-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .ish-alert-signal {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 18px;
+    }
+
+    .ish-alert-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 9px 0;
+        border-bottom: 1px solid #202832;
+        font-size: 12px;
+    }
+
+    .ish-alert-row span {
+        color: #8f9baa;
+    }
+
+    .ish-alert-row strong {
+        text-align: right;
+    }
+
+    #ish-alert-close {
+        width: 100%;
+        margin-top: 18px;
+        padding: 11px;
+        border: 1px solid #29333f;
+        border-radius: 10px;
+        background: #0e131a;
+        color: #e8edf3;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    #ish-alert-close:active {
+        transform: scale(0.98);
+    }
+
+    @media (max-width: 600px) {
+
+        #ish-trade-alert {
+            top: 74px;
+            right: 10px;
+            left: 10px;
+            width: auto;
+        }
+
+        .ish-alert-box {
+            padding: 16px;
+        }
+
+        .ish-alert-title {
+            font-size: 16px;
+        }
+
+        .ish-alert-signal {
+            font-size: 24px;
+        }
+    }
 
     </style>
 </head>
