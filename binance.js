@@ -1,3 +1,103 @@
+const chartContainer =
+    document.getElementById("btc-chart");
+
+let btcChart = null;
+let candleSeries = null;
+
+if (chartContainer) {
+
+    btcChart =
+        LightweightCharts.createChart(
+            chartContainer,
+            {
+                width: chartContainer.clientWidth,
+                height: chartContainer.clientHeight,
+
+                layout: {
+                    background: {
+                        color: "#0e131a"
+                    },
+                    textColor: "#8f9baa"
+                },
+
+                grid: {
+                    vertLines: {
+                        color: "#18202a"
+                    },
+                    horzLines: {
+                        color: "#18202a"
+                    }
+                },
+
+                rightPriceScale: {
+                    borderColor: "#29333f"
+                },
+
+                timeScale: {
+                    borderColor: "#29333f",
+                    timeVisible: true,
+                    secondsVisible: false
+                }
+            }
+        );
+
+    candleSeries =
+        btcChart.addSeries(
+            LightweightCharts.CandlestickSeries,
+            {
+                upColor: "#35d07f",
+                downColor: "#ff6673",
+                borderUpColor: "#35d07f",
+                borderDownColor: "#ff6673",
+                wickUpColor: "#35d07f",
+                wickDownColor: "#ff6673"
+            }
+        );
+}
+
+window.addEventListener("resize", () => {
+
+    if (!btcChart || !chartContainer) {
+        return;
+    }
+
+    btcChart.resize(
+        chartContainer.clientWidth,
+        chartContainer.clientHeight
+    );
+
+});
+
+if (candleSeries) {
+
+    candleSeries.setData([
+        {
+            time: Math.floor(Date.now() / 1000) - 180,
+            open: 68000,
+            high: 68100,
+            low: 67950,
+            close: 68080
+        },
+        {
+            time: Math.floor(Date.now() / 1000) - 120,
+            open: 68080,
+            high: 68200,
+            low: 68020,
+            close: 68150
+        },
+        {
+            time: Math.floor(Date.now() / 1000) - 60,
+            open: 68150,
+            high: 68300,
+            low: 68100,
+            close: 68250
+        }
+    ]);
+
+    btcChart.timeScale().fitContent();
+
+}
+
 const ANALYSIS_API =
     "https://ish-labs-backend.onrender.com/api/analysis";
 
