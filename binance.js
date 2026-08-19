@@ -570,7 +570,7 @@ function updateTradeSetupPanel(analysis) {
 
         if (scoreElement) {
             scoreElement.textContent =
-                quality.score != null
+                decision.score != null
                     ? `${quality.score} / 10`
                     : "—";
         }
@@ -608,7 +608,9 @@ function updateTradeSetupPanel(analysis) {
 
         if (scoreElement) {
             scoreElement.textContent =
-                "0 / 10";
+                decision.score != null
+                    ? `${decision.score} / 10`
+                    : "0 / 10";
         }
 
         if (statusElement) {
