@@ -808,7 +808,10 @@
 
                 <div class="setup">
 
-                    <div class="setup-direction neutral">
+                    <div 
+                        class="setup-direction neutral"
+                        id="trade-setup-direction"
+                    >
                         NO ACTIVE SETUP
                     </div>
 
@@ -821,7 +824,7 @@
                                 ENTRY
                             </div>
 
-                            <div class="metric-value">
+                            <div class="metric-value" id="trade-entry">
                                 —
                             </div>
 
@@ -834,7 +837,7 @@
                                 STOP LOSS
                             </div>
 
-                            <div class="metric-value">
+                            <div class="metric-value" id="trade-stop-loss">
                                 —
                             </div>
 
@@ -847,7 +850,7 @@
                                 TP1
                             </div>
 
-                            <div class="metric-value">
+                            <div class="metric-value" id="trade-tp1">
                                 —
                             </div>
 
@@ -860,7 +863,7 @@
                                 TP2
                             </div>
 
-                            <div class="metric-value">
+                            <div class="metric-value" id="trade-tp2">
                                 —
                             </div>
 
@@ -875,14 +878,17 @@
                             SETUP SCORE
                         </span>
 
-                        <strong>
+                        <strong id="trade-setup-score">
                             0 / 10
                         </strong>
 
                     </div>
 
 
-                    <div class="status-box">
+                    <div 
+                        class="status-box">
+                        id="trade-status"
+                    >
                         WAITING FOR MARKET DATA
                     </div>
 
