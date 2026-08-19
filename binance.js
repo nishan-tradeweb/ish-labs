@@ -7,6 +7,129 @@ const BINANCE_PRICE_API =
 let lastPrice = null;
 let latestAnalysis = null;
 let lastAlertedTrade = null;
+let signalMonitoringReady = false;
+let audioContext = null;
+let audioUnlocked = false;
+
+function unlockAlertSound() {
+
+    if (audioUnlocked) return;
+
+    try {
+
+        audioContext =
+            new (window.AudioContext ||
+                window.webkitAudioContext)();
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+        audioUnlocked = true;
+
+        console.log(
+            "ISH LABS ALERT SOUND UNLOCKED"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Alert sound unlock failed:",
+            error
+        );
+
+    }
+}
+
+document.addEventListener(
+    "click",
+    unlockAlertSound,
+    { once: true }
+);
+
+document.addEventListener(
+    "dblclick",
+    () => {
+        playTradeAlertSound();
+    }
+);
+
+document.addEventListener(
+    "touchstart",
+    unlockAlertSound,
+    { once: true }
+);
+
+function playTradeAlertSound() {
+
+    if (!audioContext || !audioUnlocked) {
+        console.log(
+            "Alert sound not ready — user interaction required."
+        );
+        return;
+    }
+
+    try {
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            880,
+            audioContext.currentTime
+        );
+
+        oscillator.frequency.setValueAtTime(
+            1174,
+            audioContext.currentTime + 0.15
+        );
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.25,
+            audioContext.currentTime + 0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            audioContext.currentTime + 0.45
+        );
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + 0.45
+        );
+
+        console.log(
+            "ISH LABS TRADE ALERT SOUND"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Trade alert sound failed:",
+            error
+        );
+
+    }
+}
 
 async function checkTradingSignal() {
 
@@ -41,7 +164,16 @@ async function checkTradingSignal() {
             const tradeId =
                 JSON.stringify(analysis.trade_levels);
 
-            if (lastAlertedTrade !== tradeId) {
+            if (!signalMonitoringReady) {
+
+                lastAlertedTrade = tradeId;
+                signalMonitoringReady = true;
+
+                console.log(
+                    "ISH LABS SIGNAL MONITORING READY"
+                );
+
+            } else if (lastAlertedTrade !== tradeId) {
 
                 lastAlertedTrade = tradeId;
 
@@ -49,6 +181,8 @@ async function checkTradingSignal() {
                     "NEW VALID TRADE:",
                     analysis.trade_levels
                 );
+
+                playTradeAlertSound();
 
                 showTradeAlert(analysis);
             }
