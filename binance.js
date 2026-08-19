@@ -613,7 +613,7 @@ function updateTradeSetupPanel(analysis) {
 
             scoreElement.textContent =
                 Number.isFinite(score)
-                    ? `${Math.abs(score)} / 10`
+                    ? `${score} / 10`
                     : "—";
         }
 
