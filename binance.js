@@ -181,35 +181,34 @@ function updateLivePanel(price) {
             <span>Connection</span>
             <strong class="check">LIVE</strong>
         </div>
+
+        ${
+            latestAnalysis
+                ? `
+                    <div class="analysis-row">
+                        <span>ISH Labs API</span>
+                        <strong class="check">CONNECTED</strong>
+                    </div>
+
+                    <div class="analysis-row">
+                        <span>Signal</span>
+                        <strong>
+                            ${latestAnalysis.signal?.signal ?? "N/A"}
+                        </strong>
+                    </div>
+
+                    <div class="analysis-row">
+                        <span>Decision</span>
+                        <strong>
+                            ${latestAnalysis.final_decision?.decision ?? "N/A"}
+                        </strong>
+                    </div>
+                `
+                : ""
+        }
     `;
-
-    if (latestAnalysis) {
-
-        panel.innerHTML += `
-            <div class="analysis-row">
-                <span>ISH Labs API</span>
-                <strong class="check">
-                    CONNECTED
-                </strong>
-            </div>
-
-            <div class="analysis-row">
-                <span>Signal</span>
-                <strong>
-                    ${latestAnalysis.signal?.signal ?? "N/A"}
-                </strong>
-            </div>
-
-            <div class="analysis-row">
-                <span>Decision</span>
-                <strong>
-                    ${latestAnalysis.final_decision?.decision ?? "N/A"}
-                </strong>
-            </div>
-        `;
-    }
 }
-
+    
 updateBTCPrice();
 
 setInterval(
